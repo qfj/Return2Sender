@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:7.2
+    ports:
+      - "6379:6379"
+
+  validator:
+    build:
+      context: .
+      dockerfile: validator/Dockerfile
+    depends_on:
+      - redis
+    environment:
+      REDIS_HOST: redis
+    tty: true  # keeps container running
